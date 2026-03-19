@@ -326,6 +326,19 @@
         flex-shrink: 0;
       }
 
+      .fi-icon-primary {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 80px;
+        height: 80px;
+        background: radial-gradient(circle at 35% 30%, rgba(34,211,238,0.18), rgba(16,185,129,0.08) 70%);
+        border: 1px solid rgba(103,232,249,0.22);
+        border-radius: 24px;
+        box-shadow: 0 0 32px rgba(34,211,238,0.12), inset 0 1px 0 rgba(255,255,255,0.07);
+      }
+
       .fi-body { flex: 1; min-width: 0; }
 
       .fi-name {
@@ -501,7 +514,34 @@
           <!-- Inputs -->
           <div class="flow-inputs">
             <div class="flow-input primary">
-              <span class="fi-icon">📱</span>
+              <span class="fi-icon-primary">
+                <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <linearGradient id="pg1" x1="8" y1="2" x2="38" y2="44" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#67e8f9"/>
+                      <stop offset="100%" stop-color="#6ee7b7"/>
+                    </linearGradient>
+                    <linearGradient id="pg2" x1="8" y1="2" x2="38" y2="44" gradientUnits="userSpaceOnUse">
+                      <stop offset="0%" stop-color="#cffafe" stop-opacity="0.55"/>
+                      <stop offset="100%" stop-color="#d1fae5" stop-opacity="0.35"/>
+                    </linearGradient>
+                  </defs>
+                  <!-- Body -->
+                  <rect x="9" y="2" width="28" height="42" rx="7" fill="url(#pg2)" stroke="url(#pg1)" stroke-width="1.8"/>
+                  <!-- Camera -->
+                  <circle cx="23" cy="8" r="1.6" fill="url(#pg1)" opacity="0.8"/>
+                  <!-- Screen -->
+                  <rect x="12.5" y="13" width="21" height="22" rx="3" fill="rgba(2,6,23,0.55)" stroke="rgba(103,232,249,0.25)" stroke-width="1"/>
+                  <!-- Chat bubble 1 -->
+                  <rect x="15" y="17" width="11" height="3.5" rx="1.75" fill="#22d3ee" opacity="0.75"/>
+                  <!-- Chat bubble 2 -->
+                  <rect x="19" y="23" width="11" height="3.5" rx="1.75" fill="#6ee7b7" opacity="0.75"/>
+                  <!-- Chat bubble 3 -->
+                  <rect x="15" y="29" width="9" height="3.5" rx="1.75" fill="#22d3ee" opacity="0.5"/>
+                  <!-- Home bar -->
+                  <rect x="18" y="39" width="10" height="2" rx="1" fill="url(#pg1)" opacity="0.6"/>
+                </svg>
+              </span>
               <div class="fi-body">
                 <div class="fi-name">Rozmowa przez aplikację mobilną</div>
                 <div class="fi-desc">pacjent lub opiekun odpowiada na pytania przez aplikację / stronę na smartfonie — przed wizytą lub w poczekalni</div>
