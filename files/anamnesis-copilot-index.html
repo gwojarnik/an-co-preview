@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anamnesis Copilot – Infografika</title>
+    <style>
+      :root {
+        --bg: #020617;
+        --panel: rgba(255, 255, 255, 0.05);
+        --panel-strong: rgba(15, 23, 42, 0.85);
+        --border: rgba(255, 255, 255, 0.1);
+        --text: #ffffff;
+        --muted: #cbd5e1;
+        --muted-2: #94a3b8;
+        --cyan: #67e8f9;
+        --cyan-strong: #22d3ee;
+        --emerald: #6ee7b7;
+        --violet: #c4b5fd;
+        --amber: #fde68a;
+        --fuchsia: #f0abfc;
+        --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+        --radius: 28px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(34, 211, 238, 0.16), transparent 28%),
+          radial-gradient(circle at top right, rgba(16, 185, 129, 0.14), transparent 25%),
+          radial-gradient(circle at bottom center, rgba(139, 92, 246, 0.14), transparent 30%),
+          var(--bg);
+        color: var(--text);
+      }
+
+      .container {
+        width: min(1280px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 36px 0 48px;
+      }
+
+      .grid {
+        display: grid;
+        gap: 24px;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1.2fr 0.8fr;
+        align-items: stretch;
+      }
+
+      .two-col {
+        grid-template-columns: 0.92fr 1.08fr;
+      }
+
+      .equal-col {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .three-col {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .four-col {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .two-up {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(18px);
+        overflow: hidden;
+      }
+
+      .card.dark {
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(2, 6, 23, 0.96));
+      }
+
+      .card.gradient-cyan {
+        background: linear-gradient(135deg, rgba(34, 211, 238, 0.12), rgba(16, 185, 129, 0.11));
+      }
+
+      .card.gradient-final {
+        background: linear-gradient(
+          90deg,
+          rgba(34, 211, 238, 0.12),
+          rgba(16, 185, 129, 0.12),
+          rgba(139, 92, 246, 0.12)
+        );
+      }
+
+      .content {
+        padding: 34px;
+      }
+
+      .badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 18px;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 14px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+      }
+
+      .badge.cyan {
+        color: #cffafe;
+        background: rgba(34, 211, 238, 0.1);
+        border-color: rgba(103, 232, 249, 0.24);
+      }
+
+      .badge.emerald {
+        color: #d1fae5;
+        background: rgba(16, 185, 129, 0.1);
+        border-color: rgba(110, 231, 183, 0.24);
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--cyan-strong);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 12px;
+        font-weight: 800;
+        margin-bottom: 14px;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        font-size: clamp(2.5rem, 5vw, 4.5rem);
+        line-height: 1.05;
+        letter-spacing: -0.03em;
+      }
+
+      h2 {
+        font-size: clamp(1.85rem, 3vw, 3rem);
+        line-height: 1.12;
+        letter-spacing: -0.03em;
+      }
+
+      h3 {
+        font-size: 1.25rem;
+        line-height: 1.3;
+      }
+
+      .accent-line {
+        display: block;
+        color: var(--cyan-strong);
+        margin-top: 8px;
+      }
+
+      .lead {
+        margin-top: 22px;
+        max-width: 900px;
+        color: var(--muted);
+        font-size: 1.05rem;
+        line-height: 1.9;
+      }
+
+      .muted {
+        color: var(--muted);
+      }
+
+      .muted-2 {
+        color: var(--muted-2);
+      }
+
+      .stats {
+        margin-top: 28px;
+      }
+
+      .stat-box,
+      .mini-box,
+      .pill-box,
+      .feature-box,
+      .team-box {
+        border: 1px solid var(--border);
+        background: rgba(2, 6, 23, 0.65);
+        border-radius: 22px;
+      }
+
+      .stat-box {
+        padding: 18px;
+      }
+
+      .stat-box .label {
+        color: var(--cyan);
+        font-weight: 700;
+        font-size: 0.92rem;
+      }
+
+      .stat-box .value {
+        margin-top: 6px;
+        color: var(--muted);
+        line-height: 1.5;
+        font-size: 0.95rem;
+      }
+
+      .side-stack {
+        display: grid;
+        gap: 24px;
+      }
+
+      .side-panel {
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        padding: 30px;
+        border: 1px solid rgba(255, 255, 255, 0.09);
+      }
+
+      .amber-panel {
+        background: rgba(251, 191, 36, 0.1);
+      }
+
+      .fuchsia-panel {
+        background: rgba(217, 70, 239, 0.1);
+      }
+
+      .panel-title {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 700;
+        font-size: 1.05rem;
+      }
+
+      .icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 16px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 1.25rem;
+        flex-shrink: 0;
+      }
+
+      .big-number {
+        font-size: clamp(3rem, 6vw, 4.6rem);
+        line-height: 1;
+        font-weight: 900;
+        margin-top: 22px;
+      }
+
+      .big-copy {
+        margin-top: 14px;
+        color: #e2e8f0;
+        line-height: 1.8;
+      }
+
+      .section {
+        margin-top: 24px;
+      }
+
+      .section .content.tight {
+        padding-top: 30px;
+      }
+
+      .section-intro {
+        margin-top: 10px;
+        color: var(--muted);
+        line-height: 1.8;
+        max-width: 960px;
+      }
+
+      .step-card,
+      .diff-card,
+      .benefit-card {
+        border: 1px solid var(--border);
+        background: rgba(15, 23, 42, 0.78);
+        border-radius: 26px;
+        padding: 24px;
+      }
+
+      .step-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .step-num {
+        color: var(--muted-2);
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        font-weight: 800;
+      }
+
+      .step-title {
+        margin-top: 18px;
+        font-size: 1.6rem;
+        font-weight: 800;
+      }
+
+      .step-subtitle {
+        margin-top: 4px;
+        color: var(--cyan-strong);
+        font-weight: 700;
+      }
+
+      .step-text,
+      .card-text {
+        margin-top: 14px;
+        color: var(--muted);
+        line-height: 1.8;
+        font-size: 0.95rem;
+      }
+
+      .tag {
+        display: inline-flex;
+        margin-top: 16px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(16, 185, 129, 0.12);
+        border: 1px solid rgba(110, 231, 183, 0.18);
+        color: var(--emerald);
+        font-weight: 700;
+        font-size: 0.78rem;
+      }
+
+      .mini-box {
+        padding: 16px 18px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .mini-box span:last-child {
+        color: var(--muted);
+        line-height: 1.55;
+        font-size: 0.95rem;
+      }
+
+      .focus-card .checks {
+        display: grid;
+        gap: 12px;
+        margin-top: 26px;
+      }
+
+      .pill-box {
+        padding: 16px 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .check {
+        color: var(--emerald);
+        font-weight: 900;
+      }
+
+      .diff-grid {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .benefit-card .icon,
+      .diff-card .icon,
+      .team-box .icon {
+        width: 52px;
+        height: 52px;
+      }
+
+      .feature-stack {
+        display: grid;
+        gap: 14px;
+        margin-top: 26px;
+      }
+
+      .feature-box {
+        padding: 18px;
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      .feature-box strong {
+        display: block;
+        font-size: 1rem;
+      }
+
+      .feature-box span {
+        display: block;
+        margin-top: 6px;
+        color: var(--muted);
+        line-height: 1.75;
+        font-size: 0.94rem;
+      }
+
+      .team-list {
+        display: grid;
+        gap: 16px;
+      }
+
+      .team-box {
+        padding: 22px;
+      }
+
+      .team-name {
+        font-size: 1.2rem;
+        font-weight: 800;
+      }
+
+      .team-role {
+        margin-top: 6px;
+        color: var(--amber);
+        font-size: 0.92rem;
+        font-weight: 700;
+      }
+
+      .team-copy {
+        margin-top: 14px;
+        color: var(--muted);
+        line-height: 1.8;
+        font-size: 0.95rem;
+      }
+
+      .final-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 28px;
+      }
+
+      .final-copy {
+        max-width: 860px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 50px;
+        padding: 0 22px;
+        border-radius: 18px;
+        background: #ffffff;
+        color: #020617;
+        font-weight: 800;
+        text-decoration: none;
+        box-shadow: 0 10px 30px rgba(255, 255, 255, 0.12);
+      }
+
+      .button-note {
+        margin-top: 10px;
+        color: var(--muted);
+        font-size: 0.82rem;
+        line-height: 1.7;
+        max-width: 250px;
+      }
+
+      @media (max-width: 1100px) {
+        .hero-grid,
+        .two-col,
+        .equal-col,
+        .three-col,
+        .four-col,
+        .two-up,
+        .diff-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .final-row {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+
+      @media (max-width: 720px) {
+        .container {
+          width: min(100% - 20px, 1280px);
+          padding-top: 18px;
+          padding-bottom: 28px;
+        }
+
+        .content,
+        .side-panel {
+          padding: 22px;
+        }
+
+        .step-card,
+        .diff-card,
+        .benefit-card,
+        .feature-box,
+        .team-box,
+        .stat-box,
+        .pill-box,
+        .mini-box {
+          border-radius: 22px;
+        }
+
+        .lead,
+        .big-copy,
+        .section-intro,
+        .team-copy,
+        .card-text,
+        .step-text {
+          line-height: 1.7;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <section class="grid hero-grid">
+        <article class="card">
+          <div class="content">
+            <div class="badges">
+              <span class="badge cyan">Raport strategiczny</span>
+              <span class="badge emerald">MedTech / AI / Dokumentacja medyczna</span>
+            </div>
+
+            <h1>
+              Anamnesis Copilot
+              <span class="accent-line">nowa jakość w dokumentacji i standaryzacji wywiadu medycznego</span>
+            </h1>
+
+            <p class="lead">
+              Najdroższym zasobem placówki medycznej jest czas wykwalifikowanego personelu.
+              Gdy lekarz znaczną część dnia poświęca na administrację i ręczne wpisywanie danych,
+              cierpi zarówno efektywność pracy, jak i relacja z pacjentem. Anamnesis Copilot
+              automatyzuje oraz porządkuje zbieranie wywiadu, zachowując pełne bezpieczeństwo,
+              kontrolę lekarza i spójność dokumentacji.
+            </p>
+
+            <div class="grid four-col stats">
+              <div class="stat-box">
+                <div class="label">do 50% czasu</div>
+                <div class="value">administracja zamiast opieki</div>
+              </div>
+              <div class="stat-box">
+                <div class="label">3 źródła danych</div>
+                <div class="value">tekst • obraz • dźwięk</div>
+              </div>
+              <div class="stat-box">
+                <div class="label">3 języki</div>
+                <div class="value">PL • EN • DE</div>
+              </div>
+              <div class="stat-box">
+                <div class="label">1 cel</div>
+                <div class="value">lepszy wywiad i dokumentacja</div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <div class="side-stack">
+          <article class="side-panel amber-panel">
+            <div class="panel-title">
+              <span class="icon">⏱️</span>
+              <span>Wyzwanie dziś</span>
+            </div>
+            <div class="big-number">50%</div>
+            <p class="big-copy">
+              nawet tyle czasu pracy lekarze i specjaliści mogą poświęcać na obowiązki
+              administracyjne zamiast na kontakt z pacjentem.
+            </p>
+          </article>
+
+          <article class="side-panel fuchsia-panel">
+            <div class="panel-title">
+              <span class="icon">👤</span>
+              <span>Problem pacjenta</span>
+            </div>
+            <h2 style="margin-top:22px; font-size:2rem;">
+              Te same pytania
+              <span class="accent-line" style="color: var(--fuchsia);">na wielu etapach ścieżki leczenia</span>
+            </h2>
+            <p class="big-copy">
+              SOR, przyjęcie na oddział, obchód, konsultacja — ta sama historia bywa zbierana
+              wielokrotnie, co zwiększa frustrację i ryzyko niespójności.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section card">
+        <div class="content tight">
+          <div class="eyebrow"><span class="icon">✨</span><span>Główna idea systemu</span></div>
+          <h2>Dyskretny asystent w tle, który łączy trzy źródła informacji w jeden spójny wywiad</h2>
+          <p class="section-intro">
+            System nie narzuca lekarzowi nowego sposobu pracy. Zamiast tego dyskretnie towarzyszy
+            całemu procesowi, integrując tekst, obraz i dźwięk w gotową, uporządkowaną notatkę.
+          </p>
+
+          <div class="grid three-col" style="margin-top: 26px;">
+            <article class="step-card">
+              <div class="step-head">
+                <span class="icon">💬</span>
+                <span class="step-num">Krok 01</span>
+              </div>
+              <div class="step-title">Przed wizytą</div>
+              <div class="step-subtitle">Przygotowanie</div>
+              <p class="step-text">
+                Pacjent otrzymuje bezpieczny link SMS lub e-mail i przez prosty czat opisuje problem,
+                choroby przewlekłe oraz może dodać zdjęcia leków, wypisów i dokumentów.
+              </p>
+              <span class="tag">Tekst + obraz</span>
+            </article>
+
+            <article class="step-card">
+              <div class="step-head">
+                <span class="icon">🎙️</span>
+                <span class="step-num">Krok 02</span>
+              </div>
+              <div class="step-title">W trakcie wizyty</div>
+              <div class="step-subtitle">Nasłuch</div>
+              <p class="step-text">
+                Aplikacja dyskretnie słucha rozmowy lekarza z pacjentem, odfiltrowuje codzienne,
+                niemedyczne wymiany zdań i wyłapuje wyłącznie fakty kliniczne.
+              </p>
+              <span class="tag">Dźwięk w tle</span>
+            </article>
+
+            <article class="step-card">
+              <div class="step-head">
+                <span class="icon">📄</span>
+                <span class="step-num">Krok 03</span>
+              </div>
+              <div class="step-title">Po wizycie</div>
+              <div class="step-subtitle">Gotowy szkic</div>
+              <p class="step-text">
+                Lekarz otrzymuje uporządkowany szkic wywiadu, szybko go przegląda, zatwierdza jednym
+                kliknięciem i eksportuje do systemu placówki.
+              </p>
+              <span class="tag">1 kliknięcie</span>
+            </article>
+          </div>
+
+          <div class="grid three-col" style="margin-top: 18px;">
+            <div class="mini-box"><span class="icon">📝</span><span>Opis problemu i chorób przewlekłych</span></div>
+            <div class="mini-box"><span class="icon">📷</span><span>Odczyt leków i dokumentów ze zdjęć</span></div>
+            <div class="mini-box"><span class="icon">🔎</span><span>Wychwytywanie wyłącznie faktów klinicznych</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section grid two-col">
+        <article class="card gradient-cyan focus-card">
+          <div class="content">
+            <div class="eyebrow"><span class="icon">🧠</span><span>Rdzeń rozwiązania</span></div>
+            <h2>
+              Technologia, która porządkuje wywiad,
+              <span class="accent-line" style="color: var(--emerald);">a nie zastępuje lekarza</span>
+            </h2>
+            <p class="lead" style="margin-top: 18px; max-width: none;">
+              Anamnesis Copilot ma być naturalnym rozszerzeniem pracy klinicznej: słucha,
+              porządkuje, wykrywa luki i przygotowuje materiał roboczy — bez wchodzenia w obszar
+              decyzji terapeutycznych.
+            </p>
+
+            <div class="checks">
+              <div class="pill-box"><span>Lekarz zachowuje pełną kontrolę</span><span class="check">✓</span></div>
+              <div class="pill-box"><span>Braki są sygnalizowane, nie uzupełniane domysłem</span><span class="check">✓</span></div>
+              <div class="pill-box"><span>Gotowy szkic powstaje bez dyktowania od zera</span><span class="check">✓</span></div>
+            </div>
+          </div>
+        </article>
+
+        <div class="diff-grid">
+          <article class="diff-card">
+            <span class="icon">🛡️</span>
+            <h3 style="margin-top: 18px;">Tarcza bezpieczeństwa: „tylko wywiad”</h3>
+            <p class="card-text">
+              System nie stawia diagnoz, nie sugeruje leczenia i nie wypisuje recept. Koncentruje się
+              wyłącznie na rzetelnym zebraniu faktów, pozostawiając lekarzowi pełną kontrolę nad
+              decyzją kliniczną.
+            </p>
+          </article>
+
+          <article class="diff-card">
+            <span class="icon">👁️</span>
+            <h3 style="margin-top: 18px;">Eliminacja luk informacyjnych</h3>
+            <p class="card-text">
+              Jeśli w rozmowie zabraknie kluczowego elementu, np. czasu trwania objawów, aplikacja
+              sygnalizuje brak zamiast go domyślać. To podnosi kompletność dokumentacji i jakość
+              audytową.
+            </p>
+          </article>
+
+          <article class="diff-card">
+            <span class="icon">🌍</span>
+            <h3 style="margin-top: 18px;">Wielojęzyczność dla Europy</h3>
+            <p class="card-text">
+              System od początku projektowany jest z myślą o języku polskim, angielskim i niemieckim.
+              Pacjent może mówić w swoim języku, a lekarz otrzymuje spójną notatkę w wymaganym formacie.
+            </p>
+          </article>
+
+          <article class="diff-card">
+            <span class="icon">🔒</span>
+            <h3 style="margin-top: 18px;">Prywatność i zgodność</h3>
+            <p class="card-text">
+              Rozwiązanie zakłada ślad audytowy, rygorystyczne zarządzanie danymi wrażliwymi oraz
+              automatyczne usuwanie nagrań po wygenerowaniu bezpiecznej notatki tekstowej.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section card">
+        <div class="content">
+          <div class="eyebrow"><span class="icon">🩺</span><span>Korzyści dla placówki medycznej</span></div>
+          <h2>Natychmiastowy efekt organizacyjny i jakościowy</h2>
+
+          <div class="grid three-col" style="margin-top: 26px;">
+            <article class="benefit-card">
+              <span class="icon">📋</span>
+              <h3 style="margin-top: 18px;">Standaryzacja pracy</h3>
+              <p class="card-text">
+                Wywiady z różnych oddziałów i zmian mają jednolitą strukturę, co ułatwia przekazywanie
+                pacjentów i ogranicza chaos informacyjny.
+              </p>
+            </article>
+
+            <article class="benefit-card">
+              <span class="icon">❤️</span>
+              <h3 style="margin-top: 18px;">Odzyskany czas opieki</h3>
+              <p class="card-text">
+                Mniej ręcznego wpisywania danych i mniej powtarzania tych samych pytań oznacza więcej
+                czasu na diagnozę, rozmowę i realną opiekę nad pacjentem.
+              </p>
+            </article>
+
+            <article class="benefit-card">
+              <span class="icon">🤝</span>
+              <h3 style="margin-top: 18px;">Lepsze doświadczenie pacjenta</h3>
+              <p class="card-text">
+                Lekarz może patrzeć na pacjenta, słuchać i prowadzić rozmowę, zamiast skupiać się na
+                uzupełnianiu pól w systemie.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section grid equal-col">
+        <article class="card dark">
+          <div class="content">
+            <div class="eyebrow" style="color: var(--violet);"><span class="icon">🌐</span><span>Europejski standard działania</span></div>
+            <h2>Projektowany dla realiów dużych placówek, sieci i grup medycznych</h2>
+
+            <div class="feature-stack">
+              <div class="feature-box">
+                <strong>Bezpieczny zakres funkcjonalny</strong>
+                <span>
+                  Skupienie na wywiadzie, kompletności danych i jakości notatki minimalizuje ryzyko
+                  nadmiernej automatyzacji obszarów klinicznych.
+                </span>
+              </div>
+              <div class="feature-box">
+                <strong>Prywatność od początku projektu</strong>
+                <span>
+                  Architektura uwzględnia ochronę danych wrażliwych, ślad audytowy i zarządzanie cyklem
+                  życia informacji.
+                </span>
+              </div>
+              <div class="feature-box">
+                <strong>Wdrożenie przyjazne procesom</strong>
+                <span>
+                  Rozwiązanie ma wspierać istniejący proces pracy, a nie wymagać od personelu uczenia się
+                  zupełnie nowego sposobu prowadzenia wizyty.
+                </span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="content">
+            <div class="eyebrow" style="color: var(--amber);"><span class="icon">👥</span><span>Zespół gwarantujący powodzenie wdrożenia</span></div>
+            <h2>Kompetencje naukowe połączone z doświadczeniem wdrożeniowym</h2>
+
+            <div class="team-list" style="margin-top: 24px;">
+              <div class="team-box">
+                <div class="team-name">dr Grzegorz Wojarnik</div>
+                <div class="team-role">architekt rozwiązań, analityka danych i niezawodne oprogramowanie</div>
+                <p class="team-copy">
+                  Wnosi wieloletnie doświadczenie w tworzeniu stabilnych systemów i analityce danych,
+                  oparte na rygorze naukowym i badawczym. To fundament precyzji, przewidywalności i
+                  jakości wdrożenia.
+                </p>
+              </div>
+
+              <div class="team-box">
+                <div class="team-name">prof. Krzysztof Saja</div>
+                <div class="team-role">AI, modele językowe i kontrola jakości algorytmów</div>
+                <p class="team-copy">
+                  Zapewnia doświadczenie w prowadzeniu złożonych projektów sztucznej inteligencji,
+                  bezpieczeństwo architektury modeli oraz ograniczenie niepożądanych zachowań
+                  algorytmicznych.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="section card gradient-final">
+        <div class="content final-row">
+          <div class="final-copy">
+            <div class="eyebrow"><span class="icon">🚀</span><span>Konkluzja strategiczna</span></div>
+            <h2>Mniej administracji. Więcej uwagi dla pacjenta.</h2>
+            <p class="lead" style="margin-top: 16px; max-width: none;">
+              Anamnesis Copilot porządkuje wywiad medyczny, poprawia spójność dokumentacji i odzyskuje
+              czas kliniczny — bez odbierania lekarzowi decyzyjności i bez naruszania naturalnego
+              przebiegu wizyty.
+            </p>
+          </div>
+
+          <div>
+            <a href="#" class="button">Gotowe do prezentacji</a>
+            <div class="button-note">
+              Materiał koncepcyjny / infografika do wykorzystania na spotkaniach, w prezentacji lub na stronie projektu.
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

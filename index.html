@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anamnesis Copilot – Materiały projektowe</title>
+    <style>
+      :root {
+        --bg: #020617;
+        --panel: rgba(255, 255, 255, 0.05);
+        --panel-strong: rgba(15, 23, 42, 0.85);
+        --border: rgba(255, 255, 255, 0.1);
+        --text: #ffffff;
+        --muted: #cbd5e1;
+        --muted-2: #94a3b8;
+        --cyan: #67e8f9;
+        --cyan-strong: #22d3ee;
+        --emerald: #6ee7b7;
+        --violet: #c4b5fd;
+        --amber: #fde68a;
+        --fuchsia: #f0abfc;
+        --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+        --radius: 28px;
+      }
+
+      * { box-sizing: border-box; }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        background:
+          radial-gradient(circle at top left,    rgba(34, 211, 238, 0.16), transparent 28%),
+          radial-gradient(circle at top right,   rgba(16, 185, 129, 0.14), transparent 25%),
+          radial-gradient(circle at bottom center, rgba(139, 92, 246, 0.14), transparent 30%),
+          var(--bg);
+        color: var(--text);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 48px 16px;
+      }
+
+      .wrapper {
+        width: min(860px, 100%);
+        display: flex;
+        flex-direction: column;
+        gap: 28px;
+      }
+
+      /* ── Header ──────────────────────────────────── */
+      .header {
+        background: rgba(255,255,255,0.04);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        backdrop-filter: blur(18px);
+        box-shadow: var(--shadow);
+        padding: 40px 44px;
+      }
+
+      .badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 14px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .badge.cyan    { color: #cffafe; background: rgba(34,211,238,0.1);  border: 1px solid rgba(103,232,249,0.24); }
+      .badge.emerald { color: #d1fae5; background: rgba(16,185,129,0.1);  border: 1px solid rgba(110,231,183,0.24); }
+      .badge.violet  { color: #ede9fe; background: rgba(139,92,246,0.1);  border: 1px solid rgba(196,181,253,0.24); }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--cyan-strong);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 11px;
+        font-weight: 800;
+        margin-bottom: 14px;
+      }
+
+      .icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 12px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.1);
+        font-size: 1.1rem;
+        flex-shrink: 0;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(2rem, 5vw, 3.2rem);
+        line-height: 1.08;
+        letter-spacing: -0.03em;
+      }
+
+      h1 .accent {
+        display: block;
+        color: var(--cyan-strong);
+        margin-top: 6px;
+      }
+
+      .lead {
+        margin: 18px 0 0;
+        color: var(--muted);
+        font-size: 1rem;
+        line-height: 1.85;
+        max-width: 680px;
+      }
+
+      /* ── Materials grid ──────────────────────────── */
+      .materials {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .mat-card {
+        border: 1px solid var(--border);
+        border-radius: 22px;
+        background: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(14px);
+        box-shadow: var(--shadow);
+        padding: 26px 22px;
+        text-decoration: none;
+        color: inherit;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        transition: background 0.18s, border-color 0.18s, transform 0.18s;
+        cursor: pointer;
+      }
+
+      .mat-card:hover {
+        background: rgba(34, 211, 238, 0.08);
+        border-color: rgba(103, 232, 249, 0.3);
+        transform: translateY(-3px);
+      }
+
+      .mat-card .card-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.6rem;
+        flex-shrink: 0;
+      }
+
+      .mat-card.html  .card-icon { background: rgba(34, 211, 238, 0.12);  border: 1px solid rgba(103,232,249,0.2); }
+      .mat-card.pdf   .card-icon { background: rgba(239, 68, 68, 0.12);   border: 1px solid rgba(252,165,165,0.2); }
+      .mat-card.video .card-icon { background: rgba(139, 92, 246, 0.12);  border: 1px solid rgba(196,181,253,0.2); }
+
+      .mat-card .card-label {
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--muted-2);
+      }
+
+      .mat-card .card-title {
+        font-size: 1rem;
+        font-weight: 800;
+        line-height: 1.35;
+        color: var(--text);
+      }
+
+      .mat-card .card-desc {
+        font-size: 0.88rem;
+        color: var(--muted);
+        line-height: 1.65;
+        flex: 1;
+      }
+
+      .mat-card .card-action {
+        margin-top: 4px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: var(--cyan-strong);
+      }
+
+      .mat-card.pdf   .card-action { color: #fca5a5; }
+      .mat-card.video .card-action { color: var(--violet); }
+
+      /* ── Footer strip ────────────────────────────── */
+      .footer-strip {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 20px 28px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .footer-strip p {
+        margin: 0;
+        font-size: 0.82rem;
+        color: var(--muted-2);
+        line-height: 1.65;
+      }
+
+      .footer-strip .team {
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        flex-shrink: 0;
+      }
+
+      .member {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        text-align: right;
+      }
+
+      .member .name  { font-size: 0.83rem; font-weight: 800; color: var(--text); }
+      .member .role  { font-size: 0.73rem; color: var(--amber); font-weight: 600; }
+
+      /* ── Responsive ──────────────────────────────── */
+      @media (max-width: 680px) {
+        .header { padding: 28px 22px; }
+        .materials { grid-template-columns: 1fr; }
+        .footer-strip { flex-direction: column; align-items: flex-start; }
+        .team { width: 100%; }
+        .member { text-align: left; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+
+      <!-- Header -->
+      <header class="header">
+        <div class="badges">
+          <span class="badge cyan">MedTech · AI</span>
+          <span class="badge emerald">Dokumentacja medyczna</span>
+          <span class="badge violet">Koncepcja strategiczna</span>
+        </div>
+        <div class="eyebrow"><span class="icon">🩺</span><span>Materiały projektowe</span></div>
+        <h1>
+          Anamnesis Copilot
+          <span class="accent">wsparcie w wywiadzie lekarskim</span>
+        </h1>
+        <p class="lead">
+          System automatyzujący i porządkujący zbieranie wywiadu medycznego, łączący trzy źródła
+          informacji&nbsp;— tekst, obraz i dźwięk&nbsp;— w jedną spójną, uporządkowaną notatkę.
+          Lekarz zachowuje pełną kontrolę; system wspiera, nie zastępuje.
+        </p>
+      </header>
+
+      <!-- Materials -->
+      <nav class="materials" aria-label="Materiały projektowe">
+
+        <a class="mat-card html" href="files/anamnesis-copilot-index.html">
+          <div class="card-icon">🌐</div>
+          <div>
+            <div class="card-label">Infografika interaktywna</div>
+            <div class="card-title">Prezentacja koncepcji</div>
+          </div>
+          <p class="card-desc">
+            Szczegółowe omówienie działania systemu, wyróżników technologicznych i korzyści dla
+            placówki medycznej w formie interaktywnej infografiki.
+          </p>
+          <span class="card-action">Otwórz infografikę →</span>
+        </a>
+
+        <a class="mat-card pdf" href="files/Anamnesis_Copilot_Enterprise.pdf" target="_blank" rel="noopener">
+          <div class="card-icon">📄</div>
+          <div>
+            <div class="card-label">Prezentacja PDF</div>
+            <div class="card-title">Anamnesis Copilot Enterprise</div>
+          </div>
+          <p class="card-desc">
+            Dokument strategiczny do wykorzystania na spotkaniach i w rozmowach
+            z zarządzającymi placówkami medycznymi.
+          </p>
+          <span class="card-action">Pobierz PDF →</span>
+        </a>
+
+        <a class="mat-card video" href="files/Anamnesis_Copilot__AI_dla_medycyny.mp4" target="_blank" rel="noopener">
+          <div class="card-icon">🎬</div>
+          <div>
+            <div class="card-label">Materiał wideo</div>
+            <div class="card-title">AI dla medycyny</div>
+          </div>
+          <p class="card-desc">
+            Film prezentujący koncepcję Anamnesis Copilot — przeznaczony do wykorzystania
+            podczas spotkań i prezentacji dla partnerów.
+          </p>
+          <span class="card-action">Odtwórz wideo →</span>
+        </a>
+
+      </nav>
+
+      <!-- Footer -->
+      <footer class="footer-strip">
+        <p>
+          Projekt&nbsp;<strong>Anamnesis Copilot</strong>&nbsp;· koncepcja strategiczna, 2025–2026<br>
+          Materiał przeznaczony do rozmów strategicznych z placówkami medycznymi.
+        </p>
+        <div class="team">
+          <div class="member">
+            <span class="name">dr Grzegorz Wojarnik</span>
+            <span class="role">Architekt rozwiązań, analityka danych</span>
+          </div>
+          <div class="member">
+            <span class="name">prof. Krzysztof Saja</span>
+            <span class="role">AI, modele językowe, kontrola jakości</span>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  </body>
+</html>
