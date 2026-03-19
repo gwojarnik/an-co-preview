@@ -413,6 +413,42 @@
         line-height: 1.5;
       }
 
+      /* ── URL bar ─────────────────────────────────── */
+      .url-bar {
+        background: rgba(34, 211, 238, 0.07);
+        border: 1px solid rgba(103, 232, 249, 0.25);
+        border-radius: 14px;
+        padding: 14px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .url-bar .url-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--muted-2);
+        flex-shrink: 0;
+      }
+
+      .url-bar a {
+        font-size: 0.97rem;
+        font-weight: 800;
+        color: var(--cyan-strong);
+        text-decoration: none;
+        letter-spacing: 0.01em;
+        word-break: break-all;
+      }
+
+      .url-bar a:hover {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+
       /* ── Responsive ──────────────────────────────── */
       @media (max-width: 680px) {
         .header { padding: 28px 22px; }
@@ -539,7 +575,7 @@
         <a class="mat-card video" href="files/Anamnesis_Copilot__AI_dla_medycyny.mp4" target="_blank" rel="noopener">
           <div class="card-icon">🎬</div>
           <div>
-            <div class="card-label">Film MP4 · ~3 min</div>
+            <div class="card-label">Film MP4 · ~7 min</div>
             <div class="card-title">Explainer wideo</div>
           </div>
           <p class="card-desc">
@@ -568,6 +604,14 @@
           </div>
         </div>
       </footer>
+
+      <!-- URL bar -->
+      <div class="url-bar">
+        <span class="url-label">🌐 Strona projektu</span>
+        <a href="https://gwojarnik.github.io/an-co-preview/" target="_blank" rel="noopener">
+          https://gwojarnik.github.io/an-co-preview/
+        </a>
+      </div>
 
     </div>
   </body>
